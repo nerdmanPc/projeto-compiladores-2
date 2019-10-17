@@ -1,0 +1,5 @@
+PROGRAMAINICIO
+	#testando comentario
+ ExecucaoInicio
+   Mova 2 Passos
+FIMPROGRAMA

@@ -1,0 +1,7 @@
+#numero mal formado
+
+PROGRAMAINICIO
+ INICIO
+	mova 3A passos
+	suba 567 OU 48d #numeros so possuem digitos 
+FIMPROGRAMA

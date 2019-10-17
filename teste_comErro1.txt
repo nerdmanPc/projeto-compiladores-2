@@ -1,0 +1,7 @@
+#vamos verificar identificadores mal formados
+AJEss!@ abacaxi@
+PROGR@MAiNICIO 
+ abacax98*
+ #sabao
+	fIMeXECUCAO
+FIMPROGRAMA

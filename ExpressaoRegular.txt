@@ -1,0 +1,4 @@
+Expressão Regular utilizada:
+[0-9][0-9]*
+[A-Za-Z][A-Za-Z0-9]*
+
