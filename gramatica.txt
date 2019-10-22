@@ -1,0 +1,176 @@
+Programa': 
+    Programa $
+Programa: 
+    programainicio Declaracoes execucaoinicio Comando fimexecucao fimprograma
+Declaracoes: 
+    Declaracao Declaracoes
+    €
+Declaracao: 
+    definainstrucao identificador como Comando
+Bloco: 
+    inicio Comandos fim 
+Comandos: 
+    Comando Comandos
+    €
+Comando: 
+    Bloco
+    Iteracao
+    Laco
+    Condicional
+    Instrucao
+Iteracao: 
+    repita numero vezes Comando fimrepita
+Laco: 
+    enquanto Condicao faca Comando fimpara
+Condicional: 
+    se Condicao entao Comando fimse senao Comando fimsenao
+    se Condicao entao Comando fimse
+Numeros: 
+    numero Numeros
+    €
+Instrucao: 
+    mova Numeros passos
+    mova Numeros
+    vire para sentido
+    identificador
+    pare
+    finalize
+    apague lampada
+    acenda lampada
+    aguarde ate Condicao
+Condicao:
+    robo pronto
+    robo ocupado
+    robo parado
+    robo movimentando
+    frente robo bloqueada
+    esquerda robo bloqueada
+    lampada acesa a frente
+    lampada apagada a frente
+    lampada acesa a esquerda
+    lampada apagada a esquerda
+    lampada acesa a direita
+    lampada apagada a direita
+
+
+AUTÔMATO
+
+S1 = {
+    Programa': .Programa $
+    P: .programainicio Declaracoes execucaoinicio Comando fimexecucao fimprograma
+    T(Programa, S2)
+    T(programainicio, S3)
+}
+
+S2 = {
+    Programa': Programa .$
+    T($, SOK)
+}
+
+SOK = {
+    Programa': Programa $ .
+}
+
+S3 = {
+    Programa: programainicio .Declaracoes execucaoinicio Comando fimexecucao fimprograma
+    Declaracoes: .Declaracao Declaracoes
+    Declaracoes: .
+    Declaracao: .definainstrucao identificador como Comando
+    T(Declaracoes, S4)
+    T(Declaracao, S5)
+    T(definainstrucao, S6)
+}
+
+S4 = {
+    Programa: programainicio Declaracoes .execucaoinicio Comando fimexecucao fimprograma,
+    T(execucaoinicio, S7)
+}
+
+S5 = {
+    Declaracoes: Declaracao .Declaracoes
+    Declaracoes: .Declaracao Declaracoes
+    Declaracoes: .
+    Declaracao: .definainstrucao identificador como Comando
+    T(Declaracoes, S8)
+    T(Declaracao, S5)
+    T(definainstrucao, S6)
+}
+
+S6 = {
+    Declaracao: definainstrucao .identificador como Comando
+    T(identificador, S9)
+}
+
+S7 = {
+    Programa: programainicio Declaracoes execucaoinicio .Comando fimexecicao fimprograma
+    Comando: .Bloco
+    Comando: .Iteracao
+    Comando: .Laco
+    Comando: .Condicional
+    Comando: .Instrucao
+    Bloco: .inicio Comandos fim
+    Iteracao: .repita numero vezes Comando fimrepita
+    Condicional: .se Condicao entao Comando fimse senao Comando fimsenao
+    Condicional: .se Condicao entao Comando fimse
+    Instrucao: .mova Numeros passos
+    Instrucao: .mova Numeros
+    Instrucao: .vire para sentido
+    Instrucao: .identificador
+    Instrucao: .pare
+    Instrucao: .finalize
+    Instrucao: .apague lampada
+    Instrucao: .acenda lampada
+    Instrucao: .aguarde ate Condicao
+    T(Comando, S11)
+    T(Bloco, S12)
+    T(Iteracao, S13)
+    T(Laco, S14)
+    T(Condicional, S15)
+    T(Instrucao, S16)
+    T(inicio, S17)
+    T(repita, S18)
+    T(se, S19)
+    T(mova, S20)
+    T(vire, S21)
+    T(identificador, S22)
+    T(pare, S23)
+    T(finalize, S24)
+    T(apague, S25)
+    T(acenda, S26)
+    T(aguarde, S27)
+}
+
+S8 = {
+    Declaracoes: Declaracao Declaracoes .
+}
+
+S9 = {
+    Declaracao: definainstrucao identificador .como Comando
+    T(como, S10)
+}
+
+S10 = {
+    Declaracao: definainstrucao identificador como .Comando
+    Comando: .Bloco
+    Comando: .Iteracao
+    Comando: .Laco
+    Comando: .Condicional
+    Comando: .Instrucao
+    Bloco: .inicio Comandos fim
+    Iteracao: .repita numero vezes Comando fimrepita
+    Condicional: .se Condicao entao Comando fimse senao Comando fimsenao
+    Condicional: .se Condicao entao Comando fimse
+    Instrucao: .mova Numeros passos
+    Instrucao: .mova Numeros
+    Instrucao: .vire para sentido
+    Instrucao: .identificador
+    Instrucao: .pare
+    Instrucao: .finalize
+    Instrucao: .apague lampada
+    Instrucao: .acenda lampada
+    Instrucao: .aguarde ate Condicao
+}
+
+S11 = {
+
+}
