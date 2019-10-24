@@ -45,6 +45,7 @@ Condicao:
     robo movimentando
     frente robo bloqueada
     esquerda robo bloqueada
+    direita robo bloqueada
     lampada acesa a frente
     lampada apagada a frente
     lampada acesa a esquerda
@@ -132,6 +133,7 @@ S7 = {
     Instrucao: .apague lampada
     Instrucao: .acenda lampada
     Instrucao: .aguarde ate Condicao
+
     T(Comando, S11)
     T(Bloco, S12)
     T(Iteracao, S13)
@@ -182,29 +184,30 @@ S10 = {
     Instrucao: .apague lampada
     Instrucao: .acenda lampada
     Instrucao: .aguarde ate Condicao
+
+    T(Comando, S28)
+    T(Bloco, S12)
+    T(Iteracao, S13)
+    T(Laco, S14)
+    T(Condicional, S15)
+    T(Instrucao, S16)
+    T(inicio, S17)
+    T(repita, S18)
+    T(se, S19)
+    T(mova, S20)
+    T(vire, S21)
+    T(identificador, S22)
+    T(pare, S23)
+    T(finalize, S24)
+    T(apague, S25)
+    T(acenda, S26)
+    T(aguarde, S27)
 }
 
 S11 = {
-    Programa: programainicio Declaracoes execucaoinicio .Comando fimexecicao fimprograma
+    Programa: programainicio Declaracoes execucaoinicio Comando .fimexecicao fimprograma
 
-    Comando: .Bloco
-    Comando: .Iteracao
-    Comando: .Laco
-    Comando: .Condicional
-    Comando: .Instrucao
-    Bloco: .inicio Comandos fim
-    Iteracao: .repita numero vezes Comando fimrepita
-    Condicional: .se Condicao entao Comando fimse senao Comando fimsenao
-    Condicional: .se Condicao entao Comando fimse
-    Instrucao: .mova Numeros passos
-    Instrucao: .mova Numeros
-    Instrucao: .vire para sentido
-    Instrucao: .identificador
-    Instrucao: .pare
-    Instrucao: .finalize
-    Instrucao: .apague lampada
-    Instrucao: .acenda lampada
-    Instrucao: .aguarde ate Condicao
+    T(fimexecucao, S29)
 }
 
 S12 = {
@@ -251,40 +254,190 @@ S17 = {
     Instrucao: .aguarde ate Condicao
 
     Comandos: .
+
+    T(Comando, S30)
+    T(Bloco, S12)
+    T(Iteracao, S13)
+    T(Laco, S14)
+    T(Condicional, S15)
+    T(Instrucao, S16)
+    T(inicio, S17)
+    T(repita, S18)
+    T(se, S19)
+    T(mova, S20)
+    T(vire, S21)
+    T(identificador, S22)
+    T(pare, S23)
+    T(finalize, S24)
+    T(apague, S25)
+    T(acenda, S26)
+    T(aguarde, S27)
 }
 
 S18 = {
     Iteracao: repita .numero vezes Comando fimrepita
+
+    T(numero, S31)
 }
 
 S19 = {
     Condicional: se .Condicao entao Comando fimse senao Comando fimsenao
     Condicional: se .Condicao entao Comando fimse
 
-    //TODO
+    Condicao: .robo pronto
+    Condicao: .robo ocupado
+    Condicao: .robo parado
+    Condicao: .robo movimentando
+    Condicao: .frente robo bloqueada
+    Condicao: .sentido robo bloqueada
+    Condicao: .lampada acesa a frente
+    Condicao: .lampada apagada a frente
+    Condicao: .lampada acesa a sentido
+    Condicao: .lampada apagada a sentido
+
+    T(Condicao, S32)
+    T(robo, S33)
+    T(frente, S34)
+    T(sentido, S35)
+    T(lampada, S36)
 }
 
 S20 = {
     Instrucao: .mova Numeros passos
     Instrucao: .mova Numeros
+
+    T(mova, S37)
 }
 
 S21 = {
     Instrucao: vire .para sentido
+
+    T(para, S38)
 }
 
-S22 = {}
+S22 = {
+    Instrucao: identificador .
+}
 
-S23 = {}
+S23 = {
+    Instrucao: pare .
+}
 
-S24 = {}
+S24 = {
+    Instrucao: finalize .
+}
 
-S25 = {}
+S25 = {
+    Instrucao: apague .lampada
 
-S26 = {}
+    T(lampada, S39)
+}
 
-S27 = {}
+S26 = {
+    Instrucao: acenda .lampada
 
-S28 = {}
+    T(lampada, S40)
+}
 
-S29 = {}
+S27 = {
+    Instrucao: aguarde .ate Condicao
+
+    T(ate, S41)
+}
+
+S28 = {
+    Declaracao: definainstrucao identificador como Comando .
+}
+
+S29 = {
+    Programa: programainicio Declaracoes execucaoinicio Comando fimexecicao .fimprograma
+}
+
+S30 = {
+    Bloco: inicio Comandos .fim
+}
+
+S31 = {
+    Iteracao: repita numero .vezes Comando fimrepita
+}
+
+S32 = {
+    Condicional: se Condicao .entao Comando fimse senao Comando fimsenao
+    Condicional: se Condicao .entao Comando fimse
+}
+
+S33 = {
+    Condicao: robo .pronto
+    Condicao: robo .ocupado
+    Condicao: robo .parado
+    Condicao: robo .movimentando
+}
+
+S34 = {
+    Condicao: frente .robo bloqueada
+}
+
+S35 = {
+    Condicao: sentido .robo bloqueada
+}
+
+S36 = {
+    Condicao: lampada .acesa a frente
+    Condicao: lampada .apagada a frente
+    Condicao: lampada .acesa a sentido
+    Condicao: lampada .apagada a sentido
+}
+
+S37 = {
+    Instrucao: mova .Numeros passos
+    Instrucao: mova .Numeros
+
+    Numeros: .numero Numeros
+
+    Numeros: .
+}
+
+S38 = {
+    Instrucao: vire para .sentido
+}
+
+S39 = {
+    Instrucao: apague lampada .
+}
+
+S40 = {
+    Instrucao: acenda lampada .
+}
+
+S41 = {
+    Instrucao: aguarde ate .Condicao
+
+    Condicao: .robo pronto
+    Condicao: .robo ocupado
+    Condicao: .robo parado
+    Condicao: .robo movimentando
+    Condicao: .frente robo bloqueada
+    Condicao: .sentido robo bloqueada
+    Condicao: .lampada acesa a frente
+    Condicao: .lampada apagada a frente
+    Condicao: .lampada acesa a sentido
+    Condicao: .lampada apagada a sentido
+}
+
+S42 = {}
+
+S43 = {}
+
+S44 = {}
+
+S45 = {}
+
+S46 = {}
+
+S47 = {}
+
+S48 = {}
+
+S49 = {}
+
+S50 = {}
