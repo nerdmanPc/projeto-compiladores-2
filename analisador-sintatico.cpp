@@ -1,6 +1,6 @@
 #include "analisador-sintatico.h"
 
-ArvoreSintatica::ArvoreSintatica(){
+ArvoreSintatica::ArvoreSintatica(){/*
     pilha.push ({0, nullptr});
     gramatica [0] = {TK_NT_PROGRAMA,     6};
     gramatica [1] = {TK_NT_DECLARACOES,  2};
@@ -46,13 +46,40 @@ ArvoreSintatica::ArvoreSintatica(){
     
     for (int i=0; i<N_ESTADOS; i++){
         tabela_slr[i].init(i);
-    }
+    }*/
 }
 
-bool ArvoreSintatica::adicionarToken(Token *entrada){
+bool ArvoreSintatica::adicionarToken(Token *entrada)
+{
+    entrada->setarTipo();
+
+    if (tabela.erro(pilha.top().estado, entrada->tipo)){
+        return false;
+    }
+
+    int estado_empilha = tabela.empilha(pilha.top().estado, entrada->tipo);
+    if (estado_empilha != TabelaSLR::ACAO_INVALIDA){
+        pilha.push( {entrada, estado_empilha} );
+        return true;
+    }
+
+    int producao_reduz = tabela.reduz(pilha.top().estado, entrada->tipo);
+    if (producao_reduz != TabelaSLR::ACAO_INVALIDA){
+        Token *n_terminal = new Token( gramatica.cabeca(producao_reduz) );
+        for (int i=0; i<gramatica.tamanho(producao_reduz); i++){
+            n_terminal->adicionarFilho(pilha.top().token);
+            pilha.pop();
+        }
+        pilha.push({ 
+            n_terminal, 
+            tabela.transicao(pilha.top().estado, n_terminal->tipo) 
+        });
+        return true;
+    }
+
     return false;
 }
 
 void Estado::init (int id){
-    
+    //TODO
 }

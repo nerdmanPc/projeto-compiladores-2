@@ -21,10 +21,14 @@ enum TipoToken{
 	TK_NT_CONDICAO  //TODO
 };
 
-typedef struct {
+struct Token{
 	std::string nome = "";
 	std::string valor = "";
 	TipoToken tipo;
-} Token;
+
+	Token(TipoToken tipo);
+	void adicionarFilho(Token *filho);
+	void setarTipo();
+};
 
 #endif

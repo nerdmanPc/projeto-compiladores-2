@@ -10,8 +10,8 @@
 #define N_PRODUCOES 41
 
 struct ItemDePilha{
-    int estado;
     Token *token;
+    int estado;
 };
 
 typedef std::stack<ItemDePilha> Pilha;
@@ -34,17 +34,32 @@ struct Estado{
     void init (int id);
 };
 
+class Gramatica{
+
+public:
+    int tamanho(int producao);
+    TipoToken cabeca(int producao);
+};
+
+class TabelaSLR{
+
+public:
+    static const int ACAO_INVALIDA = -1;
+
+    bool erro(int estado, TipoToken entrada);
+    int empilha(int estado, TipoToken entrada);
+    int reduz(int estado, TipoToken entrada);
+    int transicao(int estado, TipoToken n_terminal);
+    bool aceita(int estado);
+};
 
 
 class ArvoreSintatica{
-    static const int estado_acc = 45;
-
-    static Estado tabela_slr[N_ESTADOS];
-    static Producao gramatica[N_PRODUCOES];
+    static TabelaSLR tabela;
+    static Gramatica gramatica;
 
     Pilha pilha;
 
-    //pilha, raiz, tabela
 public:
     ArvoreSintatica();
     bool adicionarToken(Token *entrada);
