@@ -1,3 +1,44 @@
+Programa -> programainicio Declaracoes execucaoinicio Comando fimexecucao fimprograma
+Declaracoes -> Declaracao Declaracoes
+Declaracoes -> ''
+Declaracao -> definainstrucao identificador como Comando
+Bloco -> inicio Comandos fim 
+Comandos -> Comando Comandos
+Comandos -> ''
+Comando -> Bloco
+Comando -> Iteracao
+Comando -> Laco
+Comando -> Condicional
+Comando -> Instrucao
+Iteracao -> repita numero vezes Comando fimrepita
+Laco -> enquanto Condicao faca Comando fimpara
+Condicional -> se Condicao entao Comando fimse senao Comando fimsenao
+Condicional -> se Condicao entao Comando fimse
+Numeros -> numero Numeros
+Numeros -> ''
+Instrucao -> mova Numeros passos
+Instrucao -> mova Numeros
+Instrucao -> vire para sentido
+Instrucao -> identificador
+Instrucao -> pare
+Instrucao -> finalize
+Instrucao -> apague lampada
+Instrucao -> acenda lampada
+Instrucao -> aguarde ate Condicao
+Condicao -> robo pronto
+Condicao -> robo ocupado
+Condicao -> robo parado
+Condicao -> robo movimentando
+Condicao -> frente robo bloqueada
+Condicao -> esquerda robo bloqueada
+Condicao -> direita robo bloqueada
+Condicao -> lampada acesa a frente
+Condicao -> lampada apagada a frente
+Condicao -> lampada acesa a esquerda
+Condicao -> lampada apagada a esquerda
+Condicao -> lampada acesa a direita
+Condicao -> lampada apagada a direita
+
 Programa': 
     Programa $
 Programa: 
