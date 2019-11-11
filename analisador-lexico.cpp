@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <iostream>
+#include "token.h"
 
 using namespace std;
 
@@ -20,11 +21,6 @@ string palavrasChaves[100] = {
 	"Robo", "Pronto", "Ocupado", "Parado", "Movimentando", "Frente", "Bloqueada", "Acessa", "a", "Esquerda", "Direita"
 };
 
-typedef struct {
-	string nome="";
-	string valor="";
-}Tokens;
-
 bool ehDigito(char entrada){
 	//'0' a '9' -> 48 a 57
 	if(entrada >= 48 && entrada <= 57)
@@ -34,7 +30,7 @@ bool ehDigito(char entrada){
 
 bool ehLetra(char entrada){
 	// 'A' a 'Z' -> 65 a 90, 'a' a 'z' -> 97 a 122
-	if (entrada >= 65 && entrada <= 90 || entrada >= 97 && entrada <= 122)
+	if ( (entrada >= 65 && entrada <= 90) || (entrada >= 97 && entrada <= 122) )
 		return true;
 	return false;
 }
@@ -47,7 +43,7 @@ bool ehIdentificador(char entrada){
 }
 
 int main(){
-	Tokens token;
+	Token token;
 	FILE* arquivo = fopen("teste_correto2.txt", "r");// mudar nome do arquivo para cada teste
 	//printf ("teste_correto2\n");//usado para identificar as imagens de retorno
 	if (arquivo == NULL){

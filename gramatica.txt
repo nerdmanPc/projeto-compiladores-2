@@ -18,7 +18,8 @@ Numeros -> numero Numeros
 Numeros -> ''
 Instrucao -> mova Numeros passos
 Instrucao -> mova Numeros
-Instrucao -> vire para sentido
+Instrucao -> vire para esquerda
+Instrucao -> vire para direita
 Instrucao -> identificador
 Instrucao -> pare
 Instrucao -> finalize
