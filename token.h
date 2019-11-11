@@ -2,9 +2,12 @@
 #define TOKEN_H
 
 #include <string>
+#include <list>
+
 
 enum TipoToken
 {
+	TK_NULO,
 	TK_IDENTIFICADOR,
 	TK_NUMERO,
 	TK_RW_PROGRAMAINICIO,
@@ -62,12 +65,13 @@ enum TipoToken
 };
 
 struct Token{
-	std::string nome = "";
-	std::string valor = "";
+	std::string nome;
+	std::string valor;
 	TipoToken tipo;
+	std::list<Token*> filhos;
 
 	Token();
-	Token(TipoToken tipo);
+	Token(TipoToken tipo, int n_filhos = 0);
 	void adicionarFilho(Token *filho);
 	void setarTipo();
 };

@@ -145,15 +145,18 @@ bool ArvoreSintatica::adicionarToken(Token *entrada)
     }
 
     int estado_empilha = tabela.empilha(pilha.top().estado, entrada->tipo);
-    if (estado_empilha != TabelaSLR::ACAO_INVALIDA){
+    if (estado_empilha != TabelaSLR::ACAO_INVALIDA)
+    {
         pilha.push( {entrada, estado_empilha} );
         return true;
     }
 
     int producao_reduz = tabela.reduz(pilha.top().estado, entrada->tipo);
-    if (producao_reduz != TabelaSLR::ACAO_INVALIDA){
-        Token *n_terminal = new Token( gramatica.cabeca(producao_reduz) );
-        for (int i=0; i<gramatica.tamanho(producao_reduz); i++){
+    if (producao_reduz != TabelaSLR::ACAO_INVALIDA)
+    {
+        Token *n_terminal = new Token( gramatica.cabeca(producao_reduz), gramatica.tamanho(producao_reduz) );
+        for (int i=0; i<gramatica.tamanho(producao_reduz); i++)
+        {
             n_terminal->adicionarFilho(pilha.top().token);
             pilha.pop();
         }
