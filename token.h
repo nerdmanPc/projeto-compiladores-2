@@ -8,8 +8,10 @@
 enum TipoToken
 {
 	TK_NULO,
+
 	TK_IDENTIFICADOR,
 	TK_NUMERO,
+	
 	TK_RW_PROGRAMAINICIO,
 	TK_RW_EXECUCAOINICIO,
 	TK_RW_FIMEXECUCAO,
@@ -50,6 +52,7 @@ enum TipoToken
 	TK_RW_ACESA,
 	TK_RW_A,
 	TK_RW_APAGADA,
+
 	TK_NT_PROGRAMA,
 	TK_NT_DECLARACOES,
 	TK_NT_DECLARACAO,
@@ -64,16 +67,17 @@ enum TipoToken
 	TK_NT_CONDICAO 
 };
 
-struct Token{
-	std::string nome;
-	std::string valor;
+struct Token
+{
+	std::string lexema;
 	TipoToken tipo;
 	std::list<Token*> filhos;
 
 	Token();
-	Token(TipoToken tipo, int n_filhos = 0);
-	void adicionarFilho(Token *filho);
-	void setarTipo();
+	Token(TipoToken tipo, std::string lexema); //Para terminais
+	Token(TipoToken tipo, int n_filhos); //Para não terminais
+	void adicionarFilho(Token *filho); 
+	//void setarTipo();
 };
 
 #endif

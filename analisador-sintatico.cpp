@@ -56,46 +56,6 @@ TipoToken Gramatica::cabeca(int producao){
 TabelaSLR::TabelaSLR(){
     linhas  [0] [TK_RW_PROGRAMAINICIO] = { AC_EMPILHA,  1 };
     linhas  [1] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas  [2] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas  [3] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas  [6] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas  [9] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [10] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [11] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [12] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [18] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
-    linhas [13] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
     //TODO
 }
 
@@ -138,7 +98,7 @@ ArvoreSintatica::ArvoreSintatica(){
 
 bool ArvoreSintatica::adicionarToken(Token *entrada)
 {
-    entrada->setarTipo();
+    //entrada->setarTipo();
 
     if (tabela.erro(pilha.top().estado, entrada->tipo)){
         return false;

@@ -2,6 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include "token.h"
+#include "analisador-sintatico.h"
 
 using namespace std;
 
@@ -53,6 +54,7 @@ int main(){
 	
 	string lexema = "";
 	char entrada;
+	ArvoreSintatica arvore;
 	
 	do{
 		entrada = getc(arquivo);
@@ -90,9 +92,8 @@ int main(){
 			}while (ehDigito(entrada));
 			
 			if (entrada== '\n' || entrada== ' ' || entrada== EOF || entrada== '#'){
-				token.nome = "num";
-				token.valor = lexema;
-				cout <<"Token:Linha: "<<linha <<":Coluna: "<<coluna<<":Tipo "<<token.nome <<": "<<token.valor<<"\n";
+				arvore.adicionarToken(new Token(TK_NUMERO, lexema));
+				cout <<"Token:Linha: "<<linha <<":Coluna: "<<coluna<<":Tipo "<<token.tipo <<": "<<token.lexema<<"\n";
 			}
 			
 			else if (!ehDigito(entrada)){
@@ -121,9 +122,8 @@ int main(){
 			}while (ehIdentificador(entrada));
 			
 			if (entrada== '\n' || entrada== ' ' || entrada== EOF || entrada== '#'){
-				token.nome = "identificador";
-				token.valor = lexema;
-				cout <<"Token:Linha: "<<linha <<":Coluna: "<<coluna<<":Tipo "<<token.nome <<": "<<token.valor<<"\n";
+				arvore.adicionarToken(new Token(TK_IDENTIFICADOR, lexema));
+				cout <<"Token:Linha: "<<linha <<":Coluna: "<<coluna<<":Tipo "<<token.tipo <<": "<<token.lexema<<"\n";
 			}
 			
 			else if (!ehIdentificador(entrada)){
@@ -166,6 +166,7 @@ int main(){
 		lexema="";
 		
 	} while(entrada != EOF);
+	bool sucesso = arvore.encerrarConstrucao();
 	
 	fclose(arquivo);
 	return 0;
