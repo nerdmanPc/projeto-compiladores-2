@@ -53,6 +53,26 @@ TipoToken Gramatica::cabeca(int producao){
     return producoes[producao].nao_terminal;
 }
 
+Acao::Acao(const char *celula){
+    if ( (celula[0] == '\0') || (celula[0] == ' ') ){
+        printf  ("ERRO: Programa tentou inicializar ação inválida.");
+    }else if (celula[0] == 's'){
+        tipo = AC_EMPILHA;
+        sscanf(celula, "s%i", &transicao);
+    }else if (celula[0] == 'r'){
+        tipo = AC_REDUZ;
+        sscanf(celula, "r%i", &regra);
+    }else if (celula[0] >= '0' && celula[0] <= '9'){
+        tipo = AC_GOTO;
+        sscanf(celula, "%i", &transicao);
+    }
+}
+
+Acao::Acao(){
+    tipo = AC_INVALIDA;
+    transicao = TabelaSLR::ACAO_INVALIDA;
+}
+
 TabelaSLR::TabelaSLR()
 {
     FILE *arquivo = fopen("tabela_slr.csv", "r");
@@ -61,23 +81,50 @@ TabelaSLR::TabelaSLR()
         return;
     }
 
-    char *cabecalho = NULL;
-    size_t cap_cabecalho = 0;
-    size_t tam_cabecalho = getline(&cabecalho, &cap_cabecalho, arquivo);
+    char *tex_linha = NULL;
+    size_t cap_linha = 0;
+    size_t tam_linha = getline(&tex_linha, &cap_linha, arquivo);
 
-    TipoToken tokens[N_TERMINAIS + N_NAO_TERMINAIS];
+    TipoToken tokens[N_TERMINAIS + N_NAO_TERMINAIS + 16];
     int coluna = 0;
-    char *token strtok(cabecalho, ",");
-    while(*iterador != '\0'){
-        s
+    char *celula = strtok(tex_linha, ","); //Celula = "State": Ignorar
+    celula = strtok(NULL, ",");
+    while(celula != NULL){
+        tokens[coluna] = tokenPorNome(celula);
+        coluna++;
+        celula = strtok(NULL, ",");
     }
+    celula = strtok(NULL, "\n");
+    tokens[coluna] = tokenPorNome(celula);
+    coluna++;
 
-    free(cabecalho);
-    cabecalho = NULL;
+    tam_linha = getline(&tex_linha, &cap_linha, arquivo);
 
-
-    linhas  [0] [TK_RW_PROGRAMAINICIO] = { AC_EMPILHA,  1 };
-    linhas  [1] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
+    int linha = 0;
+    while (tam_linha != EOF){
+        coluna = 0;
+        celula = strtok(tex_linha, ",");
+        sscanf(celula, "%i", &linha);
+        
+        celula = strtok(NULL, ",");
+        while(celula != NULL)
+        {
+            if (celula[0] != ' ' && celula[0] != '\0'){
+                linhas[linha][tokens[coluna]] = Acao(celula);
+            }
+            coluna++;
+            celula = strtok(NULL, ",");
+        }
+        celula = strtok(NULL, "\n");
+        if (celula[0] != ' ' && celula[0] != '\0'){
+            linhas[linha][tokens[coluna]] = Acao(celula);
+        }
+        coluna++;;
+        tam_linha = getline(&tex_linha, &cap_linha, arquivo);
+    }
+    if (tex_linha){
+        free(tex_linha);
+    }
     fclose(arquivo);
     return;
     //TODO
@@ -113,11 +160,7 @@ int TabelaSLR::transicao(int estado, TipoToken n_terminal){
 }
 
 bool TabelaSLR::aceita(int estado){
-    return estado == estado_acc;
-}
-
-ArvoreSintatica::ArvoreSintatica(){
-    pilha.push ( {nullptr, 0} );
+    return linhas[estado][TK_EOF].tipo == AC_ACC;
 }
 
 bool ArvoreSintatica::adicionarToken(Token *entrada)
@@ -156,4 +199,11 @@ bool ArvoreSintatica::adicionarToken(Token *entrada)
 
 bool ArvoreSintatica::encerrarConstrucao(){
     return tabela.aceita(pilha.top().estado);
+}
+
+ArvoreSintatica::ArvoreSintatica(){
+    pilha = Pilha();
+    pilha.push ( {nullptr, 0} );
+    gramatica = Gramatica();
+    tabela = TabelaSLR();
 }

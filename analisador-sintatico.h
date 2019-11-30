@@ -40,11 +40,15 @@ class Gramatica
 enum TipoAcao{
     AC_EMPILHA,
     AC_REDUZ,
-    AC_GOTO
+    AC_GOTO,
+    AC_ACC,
+    AC_INVALIDA
 };
 struct Acao{
     TipoAcao tipo;
     union { int transicao, regra; };
+    Acao();
+    Acao(const char *celula);
 };
 typedef std::map<TipoToken, Acao> Estado;
 

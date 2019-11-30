@@ -64,7 +64,9 @@ enum TipoToken
 	TK_NT_CONDICIONAL,
 	TK_NT_NUMEROS,
 	TK_NT_INSTRUCAO,
-	TK_NT_CONDICAO 
+	TK_NT_CONDICAO,
+
+	TK_EOF
 };
 
 struct Token
@@ -79,5 +81,7 @@ struct Token
 	void adicionarFilho(Token *filho); 
 	//void setarTipo();
 };
+
+TipoToken tokenPorNome(const char *celula);
 
 #endif
