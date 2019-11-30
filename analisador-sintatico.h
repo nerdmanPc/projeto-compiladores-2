@@ -4,6 +4,11 @@
 #include "token.h"
 #include <stack>
 #include <map>
+//#include <iostream>
+//#include <fstream>
+#include <stdio.h>
+#include <string.h>
+// #include <stdlib.h> 
 
 #define N_ESTADOS 84
 #define N_TERMINAIS 45 // sem contar com $
@@ -34,7 +39,8 @@ class Gramatica
 
 enum TipoAcao{
     AC_EMPILHA,
-    AC_REDUZ
+    AC_REDUZ,
+    AC_GOTO
 };
 struct Acao{
     TipoAcao tipo;
@@ -45,10 +51,10 @@ typedef std::map<TipoToken, Acao> Estado;
 class TabelaSLR
 {
     Estado linhas[N_ESTADOS];
+    static int estado_acc;
 
     public:
 
-    static const int estado_acc = 45;
     static const int ACAO_INVALIDA = -1;
 
     TabelaSLR();

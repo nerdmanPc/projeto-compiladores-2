@@ -53,9 +53,33 @@ TipoToken Gramatica::cabeca(int producao){
     return producoes[producao].nao_terminal;
 }
 
-TabelaSLR::TabelaSLR(){
+TabelaSLR::TabelaSLR()
+{
+    FILE *arquivo = fopen("tabela_slr.csv", "r");
+    if (arquivo == NULL){
+        printf("ERRO: Tabela SLR não encontrada.\n");
+        return;
+    }
+
+    char *cabecalho = NULL;
+    size_t cap_cabecalho = 0;
+    size_t tam_cabecalho = getline(&cabecalho, &cap_cabecalho, arquivo);
+
+    TipoToken tokens[N_TERMINAIS + N_NAO_TERMINAIS];
+    int coluna = 0;
+    char *token strtok(cabecalho, ",");
+    while(*iterador != '\0'){
+        s
+    }
+
+    free(cabecalho);
+    cabecalho = NULL;
+
+
     linhas  [0] [TK_RW_PROGRAMAINICIO] = { AC_EMPILHA,  1 };
     linhas  [1] [TK_RW_EXECUCAOINICIO] = { AC_REDUZ,    2 };
+    fclose(arquivo);
+    return;
     //TODO
 }
 
