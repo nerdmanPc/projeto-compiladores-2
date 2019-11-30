@@ -1,4 +1,4 @@
-#include "analisador-sintatico.h"
+#include "sintatico.h"
 
 Gramatica::Gramatica()
 {

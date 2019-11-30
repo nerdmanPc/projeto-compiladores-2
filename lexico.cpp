@@ -2,7 +2,7 @@
 #include <string.h>
 #include <iostream>
 #include "token.h"
-#include "analisador-sintatico.h"
+#include "sintatico.h"
 
 using namespace std;
 
