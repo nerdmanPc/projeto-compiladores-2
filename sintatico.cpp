@@ -85,43 +85,34 @@ TabelaSLR::TabelaSLR()
     size_t cap_linha = 0;
     size_t tam_linha = getline(&tex_linha, &cap_linha, arquivo);
 
-    TipoToken tokens[N_TERMINAIS + N_NAO_TERMINAIS + 16];
-    int coluna = 0;
+    TipoToken tokens[N_TERMINAIS + N_NAO_TERMINAIS + 2];
+
     char *celula = strtok(tex_linha, ","); //Celula = "State": Ignorar
-    celula = strtok(NULL, ",");
+    celula = strtok(NULL, ","); //Lê primeira coluna útil
+    int coluna = 0;
     while(celula != NULL){
         tokens[coluna] = tokenPorNome(celula);
         coluna++;
-        celula = strtok(NULL, ",");
+        celula = strtok(NULL, ",\n");
     }
-    celula = strtok(NULL, "\n");
-    tokens[coluna] = tokenPorNome(celula);
-    coluna++;
 
     tam_linha = getline(&tex_linha, &cap_linha, arquivo);
-
     int linha = 0;
     while (tam_linha != EOF){
+        celula = strtok(tex_linha, ","); //Consome a célula dos Estados
+        celula = strtok(NULL, ",\n"); //Lê a primeira coluna útil
         coluna = 0;
-        celula = strtok(tex_linha, ",");
-        sscanf(celula, "%i", &linha);
-        
-        celula = strtok(NULL, ",");
-        while(celula != NULL)
-        {
+        while(celula != NULL){
             if (celula[0] != ' ' && celula[0] != '\0'){
-                linhas[linha][tokens[coluna]] = Acao(celula);
+                linhas [linha] [tokens[coluna]] = Acao(celula); 
             }
+            celula = strtok(NULL, ",\n");
             coluna++;
-            celula = strtok(NULL, ",");
         }
-        celula = strtok(NULL, "\n");
-        if (celula[0] != ' ' && celula[0] != '\0'){
-            linhas[linha][tokens[coluna]] = Acao(celula);
-        }
-        coluna++;;
+        linha++;
         tam_linha = getline(&tex_linha, &cap_linha, arquivo);
     }
+
     if (tex_linha){
         free(tex_linha);
     }
@@ -165,8 +156,6 @@ bool TabelaSLR::aceita(int estado){
 
 bool ArvoreSintatica::adicionarToken(Token *entrada)
 {
-    //entrada->setarTipo();
-
     if (tabela.erro(pilha.top().estado, entrada->tipo)){
         return false;
     }
@@ -181,7 +170,9 @@ bool ArvoreSintatica::adicionarToken(Token *entrada)
     int producao_reduz = tabela.reduz(pilha.top().estado, entrada->tipo);
     if (producao_reduz != TabelaSLR::ACAO_INVALIDA)
     {
-        Token *n_terminal = new Token( gramatica.cabeca(producao_reduz), gramatica.tamanho(producao_reduz) );
+        Token *n_terminal = new Token( 
+            gramatica.cabeca(producao_reduz), 
+            gramatica.tamanho(producao_reduz) );
         for (int i=0; i<gramatica.tamanho(producao_reduz); i++)
         {
             n_terminal->adicionarFilho(pilha.top().token);
@@ -189,11 +180,9 @@ bool ArvoreSintatica::adicionarToken(Token *entrada)
         }
         pilha.push({ 
             n_terminal, 
-            tabela.transicao(pilha.top().estado, n_terminal->tipo) 
-        });
+            tabela.transicao(pilha.top().estado, n_terminal->tipo) });
         return true;
     }
-
     return false;
 }
 

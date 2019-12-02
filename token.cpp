@@ -10,9 +10,9 @@ Token::Token(TipoToken _tipo, int n_filhos){
     tipo = _tipo;
 }
 
-Token::Token(TipoToken _tipo, std::string _lexema){
+Token::Token(TipoToken _tipo, const std::string& _lexema){
     lexema = _lexema; //TO LOWERCASE
-    if (_tipo != TK_IDENTIFICADOR){
+    if ((_tipo != TK_IDENTIFICADOR)){
         tipo = _tipo;
     } else {
         if (lexema == "programainicio"){
@@ -45,6 +45,10 @@ Token::Token(TipoToken _tipo, std::string _lexema){
             tipo = TK_RW_FIMPARA;
         }else if (lexema == "se") {
             tipo = TK_RW_SE;
+        }else if (lexema == "entao") {
+            tipo = TK_RW_ENTAO;
+        }else if (lexema == "fimse") {
+            tipo = TK_RW_FIMSE;
         }else if (lexema == "senao") {
             tipo = TK_RW_SENAO;
         }else if (lexema == "fimsenao") {
@@ -61,6 +65,8 @@ Token::Token(TipoToken _tipo, std::string _lexema){
             tipo = TK_RW_ESQUERDA;
         }else if (lexema == "direita") {
             tipo = TK_RW_DIREITA;
+        }else if (lexema == "pare") {
+            tipo = TK_RW_PARE;
         }else if (lexema == "finalize") {
             tipo = TK_RW_FINALIZE;
         }else if (lexema == "apague") {
@@ -93,12 +99,18 @@ Token::Token(TipoToken _tipo, std::string _lexema){
             tipo = TK_RW_A;
         }else if (lexema == "apagada") {
             tipo = TK_RW_APAGADA;
+        }else{
+            tipo = TK_IDENTIFICADOR;
         }
     }
 }
 
 void Token::adicionarFilho(Token *filho){
     filhos.push_front(filho);
+}
+
+void Token::print(){
+    printf("Token %d, '%s'\n", (int) tipo, lexema.c_str());
 }
 
 TipoToken tokenPorNome(const char *_celula)
@@ -134,6 +146,10 @@ TipoToken tokenPorNome(const char *_celula)
         return TK_RW_FIMPARA;
     }else if (celula == "se") {
         return TK_RW_SE;
+    }else if (celula == "entao") {
+        return TK_RW_ENTAO;
+    }else if (celula == "fimse") {
+        return TK_RW_FIMSE;
     }else if (celula == "senao") {
         return TK_RW_SENAO;
     }else if (celula == "fimsenao") {
@@ -150,6 +166,8 @@ TipoToken tokenPorNome(const char *_celula)
         return TK_RW_ESQUERDA;
     }else if (celula == "direita") {
         return TK_RW_DIREITA;
+    }else if (celula == "pare") {
+        return TK_RW_PARE;
     }else if (celula == "finalize") {
         return TK_RW_FINALIZE;
     }else if (celula == "apague") {

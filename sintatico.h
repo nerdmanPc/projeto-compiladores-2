@@ -10,7 +10,7 @@
 #include <string.h>
 // #include <stdlib.h> 
 
-#define N_ESTADOS 84
+#define N_ESTADOS 85
 #define N_TERMINAIS 45 // sem contar com $
 #define N_NAO_TERMINAIS 12
 #define N_PRODUCOES 41
@@ -71,8 +71,8 @@ class TabelaSLR
 
 class ArvoreSintatica
 {
-    static TabelaSLR tabela;
-    static Gramatica gramatica;
+    TabelaSLR tabela;
+    Gramatica gramatica;
     Pilha pilha;
 
     public:

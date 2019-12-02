@@ -3,11 +3,12 @@
 
 #include <string>
 #include <list>
+#include <stdio.h>
 
 
-enum TipoToken
+enum TipoToken: int 
 {
-	TK_NULO,
+	TK_NULO = 0,
 
 	TK_IDENTIFICADOR,
 	TK_NUMERO,
@@ -27,6 +28,8 @@ enum TipoToken
 	TK_RW_FACA,
 	TK_RW_FIMPARA,
 	TK_RW_SE,
+	TK_RW_ENTAO,
+	TK_RW_FIMSE,
 	TK_RW_SENAO,
 	TK_RW_FIMSENAO,
 	TK_RW_MOVA,
@@ -76,9 +79,10 @@ struct Token
 	std::list<Token*> filhos;
 
 	Token();
-	Token(TipoToken tipo, std::string lexema); //Para terminais
+	Token(TipoToken tipo, const std::string& lexema); //Para terminais
 	Token(TipoToken tipo, int n_filhos); //Para não terminais
 	void adicionarFilho(Token *filho); 
+	void print();
 	//void setarTipo();
 };
 

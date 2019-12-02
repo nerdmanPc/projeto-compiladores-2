@@ -1,5 +1,5 @@
-PROGRAMAINICIO
+programainicio
 	#testando comentario
- ExecucaoInicio
-   Mova 2 Passos
-FIMPROGRAMA
+ execucaoinicio
+  mova 2 passos
+fimprograma
